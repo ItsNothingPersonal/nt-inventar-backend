@@ -1,0 +1,216 @@
+"""
+Die verfügbaren Abfragen
+
+Queries sind öffentlich zugänglich
+"""
+type Query {
+  "Einen bestimmten Gegenstand via ID abfragen"
+  gegenstandById(id: ID!): Gegenstand
+
+  "Eine bestimmte Kiste via ID abfragen"
+  kisteById(id: ID!): Kiste
+
+  """
+  Alle verfügbaren Gegenstände abfragen
+
+  Alle Parameter sind optional
+  """
+  alleGegenstaende(
+    filter: String
+    skip: Int
+    take: Int
+    orderBy: GegenstandOrderByInput
+  ): [Gegenstand]!
+
+  """
+  Alle verfügbaren Kisten abfragen
+
+  Alle Parameter sind optional
+  """
+  alleKisten(
+    filter: String
+    skip: Int
+    take: Int
+    orderBy: KisteOrderByInput
+  ): [Kiste]!
+}
+
+"""
+Die verfügbaren Mutationen
+
+Mutationen benötigen eine Anmeldung via Bearer-Token.
+Für Rückfragen zu diesem Thema bitte bei Sebastian melden.
+"""
+type Mutation {
+  """
+  Eine Kiste hinzufügen
+
+  Eine Kiste kann ohne Gegenstände erzeugt werden.
+  """
+  addKiste(input: AddKisteInput): Kiste
+
+  """
+  Einem Gegenstand hinzufügen
+
+  Ein Gegenstand muss immer einer Kiste zugeordnet sein
+  """
+  addGegenstand(input: AddGegenstandInput): Gegenstand
+
+  """
+  Eine Kiste löschen
+
+  **Vorsicht:** Wird eine Kiste gelöscht, werden alle ihr zugeordneten Gegenstände ebenfalls entfernt!
+  """
+  deleteKiste(id: ID!): DeleteKiste
+
+  "Einen Gegenstand löschen"
+  deleteGegenstand(id: ID!): DeleteGegenstand
+
+  "Eine Kiste updaten"
+  updateKiste(id: ID!, input: UpdateKisteInput): Kiste
+
+  "Einen Gegenstand updaten"
+  updateGegenstand(id: ID!, input: UpdateGegenstandInput): Gegenstand
+}
+
+"Die Felder eines Gegenstands"
+type Gegenstand {
+  id: ID!
+  name: String!
+  beschreibung: String
+  anzahl: Int!
+  "Im Moment ein String, der einen öffentlich zugänglichen Pfad zu einer Bildatei darstellen sollte"
+  bild: String
+  "In welcher Kiste befindet sich der Gegenstand?"
+  istInKiste: Kiste!
+  hinzugefuegt: DateTime!
+  letzteInventur: DateTime!
+}
+
+"Die Felder einer Kiste"
+type Kiste {
+  id: ID!
+  name: String!
+  beschreibung: String
+  "Welche Gegenstände befinden sich in der Kiste?"
+  gegenstaendeInKiste: [Gegenstand!]
+  lagerort: Lagerort!
+  hinzugefuegt: DateTime!
+  letzteInventur: DateTime!
+}
+
+"Der Rückgabewert eines gelöschten Gegensetands"
+type DeleteGegenstand {
+  id: ID!
+  name: String!
+  beschreibung: String
+  anzahl: Int!
+  bild: String
+  hinzugefuegt: DateTime!
+  letzteInventur: DateTime!
+}
+
+"Der Rückgabewert einer gelöschten Kiste"
+type DeleteKiste {
+  id: ID!
+  name: String!
+  beschreibung: String
+  gegenstaendeInKiste: [Gegenstand!]
+  lagerort: Lagerort!
+  hinzugefuegt: DateTime!
+  letzteInventur: DateTime!
+}
+
+"Der Input für das Sortieren eines Gegenstands"
+input GegenstandOrderByInput {
+  name: Sort
+  beschreibung: Sort
+  anzahl: Sort
+  bild: Sort
+  hinzugefuegt: Sort
+  letzteInventur: Sort
+}
+
+"Der Input für das Sortieren einer Kiste"
+input KisteOrderByInput {
+  name: Sort
+  beschreibung: Sort
+  lagerort: Sort
+  hinzugefuegt: Sort
+  letzteInventur: Sort
+}
+
+"Der Input für eine neu hinzuzufügende Kiste"
+input AddKisteInput {
+  name: String!
+  beschreibung: String
+  gegenstaende: [AddGegenstandInput!]
+  lagerort: Lagerort!
+}
+
+"Der Input für einen neu hinzuzufügenden Gegenstand"
+input AddGegenstandInput {
+  name: String!
+  beschreibung: String
+  anzahl: Int!
+  bild: String
+  kisteID: ID
+  kiste: AddKisteFuerGegenstandInput
+}
+
+"""
+Ein spezieller Input für das Hinzufügen einer Kiste
+
+Wird verwendet, wenn man beim Hinzufügen eines Gegenstandes eine neue Kiste erzeugen möchte
+"""
+input AddKisteFuerGegenstandInput {
+  name: String!
+  beschreibung: String
+  lagerort: Lagerort!
+}
+
+"Der Input für das Update einer Kiste"
+input UpdateKisteInput {
+  name: String
+  beschreibung: String
+  gegenstaende: [UpdateAddGegenstandInput!]
+  lagerort: Lagerort
+}
+
+"Der Input für das Update eines Gegenstandes"
+input UpdateGegenstandInput {
+  name: String
+  beschreibung: String
+  anzahl: Int
+  bild: String
+  kisteID: ID
+  kisteNeu: AddKisteInput
+}
+
+"""
+Ein spezieller Input für das Hinzufügen eines Gegensetands
+
+Wird verwendet, wenn man beim Update einer Kiste einen neuen Gegenstand einfügen möchte
+"""
+input UpdateAddGegenstandInput {
+  name: String!
+  beschreibung: String
+  anzahl: Int!
+  bild: String
+}
+
+"Die verfügbaren Sortiermöglichkeiten"
+enum Sort {
+  asc
+  desc
+}
+
+"Die verfügbaren Lagerorte"
+enum Lagerort {
+  "Wird im Schrank im KuNo gelagert"
+  KUNO
+  "Wird im Nebenraum des OT-Bereichs gelagert"
+  PELLERHAUS
+  "Wird im Fundus-Lager bei Christian gelagert"
+  FUNDUS
+}
