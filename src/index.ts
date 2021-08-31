@@ -63,6 +63,7 @@ async function startApolloServer() {
         jwt: getJWT(req),
       };
     },
+    introspection: true,
   });
   await server.start();
 
