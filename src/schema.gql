@@ -50,7 +50,7 @@ type Mutation {
   addKiste(input: AddKisteInput): Kiste
 
   """
-  Einem Gegenstand hinzufügen
+  Einen Gegenstand hinzufügen
 
   Ein Gegenstand muss immer einer Kiste zugeordnet sein
   """

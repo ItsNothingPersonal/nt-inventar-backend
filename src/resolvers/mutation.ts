@@ -44,13 +44,17 @@ export async function addGegenstand(
     );
   }
 
-  if (!args.input.kiste && !args.input.kisteID) {
+  if (!args.input?.kiste && !args.input?.kisteID) {
     throw new UserInputError(
       'Benötige Angaben zu einer Kiste! Entweder die ID einer bestehenden Kiste oder die notwendigen Angaben zum erzeugen einer neuen Kiste!'
     );
   }
 
   let kisteID = args.input.kisteID ? parseInt(args.input.kisteID) : -1;
+  let kiste =
+    kisteID !== -1
+      ? await context.prisma.kiste.findUnique({ where: { id: kisteID } })
+      : args.input.kiste;
 
   return await context.prisma.gegenstand.create({
     data: {
@@ -59,7 +63,7 @@ export async function addGegenstand(
       istInKiste: {
         connectOrCreate: {
           where: { id: kisteID },
-          create: args.input.kiste,
+          create: kiste,
         },
       },
       anzahl: args.input.anzahl,
