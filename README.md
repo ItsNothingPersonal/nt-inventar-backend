@@ -35,7 +35,7 @@ yarn install
 ```
 4. Prisma Schema in die Datenbank einspielen
 ```bash
-yarn prisma migrate dev
+yarn prisma deploy
 ```
 
 ## Benutzung
@@ -52,6 +52,14 @@ yarn run start
 # Prisma Studio starten
 yarn run prisma:studio
 ```
+
+## Hinweis zu mysql unter Windows
+Bei der Einrichtung von mysql unter Windows unbedingt darauf achten, das in der my.ini der folgende Wert gesetzt ist:
+```ini
+lower_case_table_names=2
+```
+Defaultmäßig steht dieser Wert auf 1, was dazu führt das Prisma Tabellen Migrationsstatements mit kleingeschriebenen Tabellennamen erzeugt und diese auf einem Linux basierten DB-Host nicht funktionieren!
+Weitere Infos in der offiziellen [mysql-Doku](https://dev.mysql.com/doc/refman/8.0/en/identifier-case-sensitivity.html)
 
 ## Beiträge
 Pull-Requests sind immer, ebenso wie generelle Hinweise, willkommen.
