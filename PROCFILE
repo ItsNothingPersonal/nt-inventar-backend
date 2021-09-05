@@ -1,2 +1,2 @@
-release: prisma migrate deploy
+release: yarn prisma migrate deploy
 web: rimraf ./dist && tsc && cp ./src/schema.gql ./dist && node dist/index.js
