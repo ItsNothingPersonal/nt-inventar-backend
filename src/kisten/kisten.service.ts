@@ -41,7 +41,7 @@ export class KistenService {
   }
 
   async create(input: AddKisteInput): Promise<Kiste> {
-    return await this.prisma.kiste.create({
+    return this.prisma.kiste.create({
       data: {
         name: input.name,
         beschreibung: input.beschreibung,
@@ -61,7 +61,7 @@ export class KistenService {
   }
 
   async update(id: number, input: UpdateKisteInput): Promise<Kiste> {
-    return await this.prisma.kiste.update({
+    return this.prisma.kiste.update({
       where: { id: id },
       data: {
         name: input.name,

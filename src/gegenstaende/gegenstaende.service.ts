@@ -48,7 +48,7 @@ export class GegenstaendeService {
     kisteID: number,
     kiste: Kiste | AddKisteFuerGegenstandInput,
   ): Promise<Gegenstand> {
-    return await this.prisma.gegenstand.create({
+    return this.prisma.gegenstand.create({
       data: {
         name: input.name,
         beschreibung: input.beschreibung,
@@ -89,7 +89,7 @@ export class GegenstaendeService {
       });
     }
 
-    return await this.prisma.gegenstand.update({
+    return this.prisma.gegenstand.update({
       where: { id },
       data: {
         name: input.name,
