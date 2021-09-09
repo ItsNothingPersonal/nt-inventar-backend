@@ -1,4 +1,5 @@
 # NT-Inventar-Backend
+![NestJS CI](https://github.com/ItsNothingPersonal/nt-inventar-backend/actions/workflows/node.js.yml/badge.svg)
 
 Der GraphQL-Server für das Inventar-Projekt des [Nächtlichen Theaters](https://www.naechtlichestheater.de)
 
