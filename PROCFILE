@@ -1,2 +1,2 @@
 release: yarn prisma migrate deploy
-web: yarn prebuild && yarn build && yarn start:prod 
+web: yarn build && yarn start:prod 
