@@ -119,6 +119,3 @@ dist
 
 # Keep environment variables out of version control
 .env
-
-# sql dbs are for testing only 
-prisma/*.db

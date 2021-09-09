@@ -12,10 +12,6 @@ NODE_ENV=
 DATABASE_URL=
 PORT=
 JWKS_URI=
-AUTH_PUBLIC_KEY_KID =
-SECRET=
-CLIENT_ID=
-BASE_URL=
 ISSUER_BASE_URL=
 AUTH0_AUDIENCE=
 ```
@@ -69,6 +65,7 @@ Für Unterstützung entweder auf Github einen "Issue" erstellen oder eine PN via
 
 ## Links
 [GraphQL](https://graphql.org)
+[NestJS](https://nestjs.com)
 [Prisma](https://www.prisma.io)
 [Apollo Server](https://www.apollographql.com)
 

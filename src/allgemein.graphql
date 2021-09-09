@@ -1,0 +1,7 @@
+"Die verfügbaren Sortiermöglichkeiten"
+enum Sort {
+  asc
+  desc
+}
+
+scalar DateTime
