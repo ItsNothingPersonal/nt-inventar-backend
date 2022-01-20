@@ -8,6 +8,12 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+    
+# ensure that the action can push changes to the repo and edit PRs
+# when using `secrets.GITHUB_TOKEN`
+permissions:
+  pull-requests: write
+  contents: write    
 
 jobs:
   build:
