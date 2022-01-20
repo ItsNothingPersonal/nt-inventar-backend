@@ -1,0 +1,16 @@
+allowed:
+- 0BSD
+- apache-2.0
+- apgl-3.0-only
+- bsd
+- bsd-2-clause
+- bsd-3-clause
+- cc-by-4.0
+- gpl
+- isc
+- mit
+- msc
+- cc0-1.0
+- unlicense
+
+cache_path: .licenses.ignored
