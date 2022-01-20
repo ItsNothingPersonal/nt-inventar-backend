@@ -12,5 +12,3 @@ allowed:
 - msc
 - cc0-1.0
 - unlicense
-
-cache_path: .licenses.ignored
