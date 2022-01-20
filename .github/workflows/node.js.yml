@@ -34,5 +34,6 @@ jobs:
       uses: jonabc/licensed-ci@v1
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        workflow: push
     - run: yarn build
     - run: yarn test
