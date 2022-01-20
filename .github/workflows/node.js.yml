@@ -21,11 +21,18 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - uses: jonabc/setup-licensed@v1
+      with:
+        version: 3.x
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'yarn'
     - run: yarn install --frozen-lockfile
+    - id: licensed
+      uses: jonabc/licensed-ci@v1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
     - run: yarn build
     - run: yarn test
